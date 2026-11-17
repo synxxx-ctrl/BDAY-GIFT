@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Happy 21st Birthday, Baby</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+
+  <!-- Google Fonts: Playfair Display, Great Vibes, Plus Jakarta Sans, Lora -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Dancing+Script:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Confetti Canvas Library for the Finale -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========================================================
+       FLOATING PARTICLES BACKGROUND (Canvas)
+       ======================================================== -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- ========================================================
+       FLOATING MUSIC CONTROLLER: RUIN THE FRIENDSHIP
+       Plays the full song seamlessly in the background!
+       ======================================================== -->
+  <div class="music-pill-container" id="musicContainer">
+    <!-- 
+      🎵 FULL SONG AUDIO:
+      Plays our-song.mp3 / ruin-the-friendship.mp3 directly from this folder!
+    -->
+    <!-- The real MP3 is the ONLY source. <source> fallbacks were removed because
+         they can make the element play a different file instead of our-song.mp3. -->
+    <audio id="bg-audio" src="ruin-the-friendship.mp3" preload="metadata" loop></audio>
+
+    <button class="music-pill" id="musicToggleBtn" aria-label="Toggle background music" title="Play Ruin the Friendship">
+      <div class="music-note-icon">🎵</div>
+      <div class="music-info">
+        <span class="music-title">Ruin the Friendship</span>
+        <span class="music-sub" id="musicStatusText">Tap to Play</span>
+      </div>
+      <div class="sound-wave" id="soundWave">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </button>
+  </div>
+
+  <!-- ========================================================
+       SECTION 1: HERO (THE OPENING)
+       ======================================================== -->
+  <header class="hero-section" id="hero">
+    <div class="hero-decorations">
+      <span class="floating-sparkle s1">✨</span>
+      <span class="floating-sparkle s2">🌸</span>
+      <span class="floating-sparkle s3">💫</span>
+      <span class="floating-sparkle s4">✨</span>
+    </div>
+
+    <div class="container hero-container">
+      <!-- Portrait Photo Frame -->
+      <div class="hero-photo-wrapper">
+        <div class="rose-gold-glow"></div>
+        <div class="polaroid-frame hero-frame">
+          <div class="polaroid-tape"></div>
+          <!-- 
+            ✏️ EDIT PHOTO PLACEHOLDER:
+            Replace the 'src' below with your girlfriend's best portrait photo!
+            E.g. src="images/her-photo.jpg" or an online URL.
+          -->
+          <div class="hero-img-box">
+            <img 
+              id="heroPortraitImg"
+              src="my-photo.jpg"
+              alt="Birthday Girl Portrait" 
+              class="hero-img"
+              loading="eager"
+            >
+            <div class="frame-shimmer"></div>
+          </div>
+          <div class="polaroid-caption hero-polaroid-caption">
+            <span class="handwritten">My favorite kaaway :3</span>
+            <span class="polaroid-tag">Chapter 21 🥂</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Typography & Message -->
+      <div class="hero-content">
+        <div class="badge-pill">
+          <span class="badge-sparkle"></span>
+          <span></span>
+        </div>
+
+        <!-- 
+          ✏️ EDIT HER NAME HERE:
+          Replace "[Her Name]" with your girlfriend's actual name!
+        -->
+        <h1 class="hero-title">
+          Happy 21st Birthday, <br>
+          <span class="glow-text gradient-rose-gold" id="girlfriendName">My Baby</span>
+        </h1>
+
+        <!-- 
+          ✏️ EDIT OPENING MESSAGE HERE:
+          Personalize this sweet intro for her!
+        -->
+        <p class="hero-subtitle">
+          Welcome to your twenty-first chapter, Ganda. 
+          You bring so much happiness, laughter, and sometimes headaches into my life every single day. 
+          I won't be having lots of messages for you because I always remind you naman of how grateful I am to have you by my side, baby. 
+          But yea, may this another year of yours brings you lots of happy memories and reminders to just keep moving forward no matter how hard things get. 
+          I love you, My Dan!
+        </p>
+
+        <!-- Relationship Counter / Stats Pill -->
+        <div class="milestone-badge-row">
+          <div class="mini-stat-card">
+            <span class="stat-number">21</span>
+            <span class="stat-label">Chapter</span>
+          </div>
+          <div class="mini-stat-divider">✦</div>
+          <div class="mini-stat-card">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">Food dates</span>
+          </div>
+          <div class="mini-stat-divider">✦</div>
+          <div class="mini-stat-card">
+            <span class="stat-number">101/10</span>
+            <span class="stat-label">My Favorite Human</span>
+          </div>
+        </div>
+
+        <!-- Scroll Down Call-to-Action -->
+        <div class="hero-cta-wrapper">
+          <a href="#finale" class="btn-romantic scroll-hint-btn">
+            <span>Click meeee</span>
+            <svg class="down-arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Soft organic wavy transition -->
+    <div class="section-divider-curve">
+      <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,32L60,42.7C120,53,240,75,360,80C480,85,600,75,720,64C840,53,960,43,1080,48C1200,53,1320,75,1380,85L1440,96L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z" fill="#FFFBF8"></path>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       SECTION 3: OUR MEMORIES (SCRAPBOOK GALLERY & LIGHTBOX)
+       ======================================================== -->
+  <section class="section-wrapper gallery-section" id="gallery">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-subtitle">A Few of My Favorite Pics</span>
+        <h2 class="section-title">Lost in Our Own World</h2>
+        <div class="heart-divider">
+          <span></span><i class="heart-icon">♥</i><span></span>
+        </div>
+        <p class="section-description">
+          Click on any Polaroid to view the whole photo.
+        </p>
+      </div>
+
+      <!-- Filter / Category Buttons -->
+      <div class="gallery-filter-bar">
+        <button class="filter-btn active" data-filter="all">All Memories</button>
+        <button class="filter-btn" data-filter="dates">Food Dates</button>
+        <button class="filter-btn" data-filter="trips">Random</button>
+        <button class="filter-btn" data-filter="candids">Cutieee</button>
+      </div>
+
+      <!-- Scrapbook Grid of Polaroids -->
+      <!-- 
+        ✏️ EDIT GALLERY ITEMS:
+        You can replace the img src, data-full, titles, dates, and captions below!
+        To add a video card, set data-type="video" and provide a video link or local mp4 file.
+      -->
+      <div class="scrapbook-grid" id="scrapbookGrid">
+
+        <!-- Item 1 -->
+        <div class="polaroid-card tilt-left reveal-on-scroll" data-category="dates" data-type="image" 
+             data-full="food-date1.jpg"
+             data-caption=""
+             data-date="">
+          <div class="tape-strip tape-center"></div>
+          <div class="polaroid-inner">
+            <div class="polaroid-img-box">
+              <img src="food-date1.jpg" alt="">
+              <div class="hover-view-tag"><span>View Memory 🔍</span></div>
+            </div>
+            <div class="polaroid-text">
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="polaroid-card tilt-right reveal-on-scroll" data-category="trips" data-type="image"
+             data-full="random1.jpg"
+             data-caption=""
+             data-date="">
+          <div class="tape-strip tape-right"></div>
+          <div class="polaroid-inner">
+            <div class="polaroid-img-box">
+              <img src="random1.jpg" alt="">
+              <div class="hover-view-tag"><span>View Memory 🔍</span></div>
+            </div>
+            <div class="polaroid-text">
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="polaroid-card tilt-straight reveal-on-scroll" data-category="candids" data-type="image"
+             data-full="cutie1.PNG"
+             data-caption=""
+             data-date="">
+          <div class="pin-icon">📍</div>
+          <div class="polaroid-inner">
+            <div class="polaroid-img-box">
+              <img src="cutie1.PNG" alt="">
+              <div class="hover-view-tag"><span>View Memory 🔍</span></div>
+            </div>
+            <div class="polaroid-text">
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4 (Sample Video / Memory Card) -->
+        <div class="polaroid-card tilt-straight reveal-on-scroll" data-category="candids" data-type="image"
+             data-full="cutie2.jpg"
+             data-caption=""
+             data-date="">
+          <div class="pin-icon">📍</div>
+          <div class="polaroid-inner">
+            <div class="polaroid-img-box">
+              <img src="cutie2.jpg" alt="">
+              <div class="hover-view-tag"><span>View Memory 🔍</span></div>
+            </div>
+            <div class="polaroid-text">
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="polaroid-card tilt-right reveal-on-scroll" data-category="trips" data-type="image"
+             data-full="random2.jpg"
+             data-caption=""
+             data-date="">
+          <div class="tape-strip tape-center"></div>
+          <div class="polaroid-inner">
+            <div class="polaroid-img-box">
+              <img src="random2.jpg" alt="">
+              <div class="hover-view-tag"><span>View Memory 🔍</span></div>
+            </div>
+            <div class="polaroid-text">
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="polaroid-card tilt-left reveal-on-scroll" data-category="dates" data-type="image"
+             data-full="food-date2.jpg"
+             data-caption=""
+             data-date="">
+          <div class="pin-icon">📌</div>
+          <div class="polaroid-inner">
+            <div class="polaroid-img-box">
+              <img src="food-date2.jpg" alt="">
+              <div class="hover-view-tag"><span>View Memory 🔍</span></div>
+            </div>
+            <div class="polaroid-text">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 4: LOVE NOTES & MESSAGES
+       (Interactive 21 Reasons Carousel + "Open When..." Envelopes)
+       ======================================================== -->
+  <section class="section-wrapper love-notes-section" id="love-notes">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-subtitle">Just a few things I want you to know</span>
+        <h2 class="section-title">Letters & Notes</h2>
+        <div class="heart-divider">
+          <span></span><i class="heart-icon">♥</i><span></span>
+        </div>
+      </div>
+
+      <!-- Mode Switcher: 21 Reasons vs Open When Envelopes -->
+      <div class="notes-tab-switcher">
+        <button class="tab-pill active" id="tab21Reasons">
+          <span class="tab-icon">💖</span> 18 Reasons Why I Love You
+        </button>
+        <button class="tab-pill" id="tabOpenWhen">
+          <span class="tab-icon">💌</span> "Open When..." Letters
+        </button>
+      </div>
+
+      <!-- TAB PANEL 1: 21 Reasons Interactive Flip Cards Carousel -->
+      <div class="tab-content active" id="panel21Reasons">
+        <div class="reasons-carousel-wrapper">
+          <div class="carousel-card-outer">
+            <!-- 3D Flip Card -->
+            <div class="reason-flip-card" id="reasonFlipCard">
+              <div class="flip-card-inner">
+                <!-- Front Side -->
+                <div class="flip-card-front">
+                  <div class="reason-top-tag">
+                    <span class="heart-pulse-mini"></span>
+                    <span id="reasonNumberBadge">Reason #1 of 18</span>
+                  </div>
+                  <div class="reason-quote-icon">“</div>
+                  <h3 class="reason-title" id="reasonFrontTitle">The Comfort That You Bring</h3>
+                  <p class="reason-teaser" id="reasonFrontTeaser">
+                    The way your eyes catch my attention when you're looking at me.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="carousel-navigation">
+            <button class="nav-arrow-btn" id="prevReasonBtn" aria-label="Previous reason">❮</button>
+            <div class="carousel-counter-display">
+              <span id="currentReasonIndex">1</span> / <span id="totalReasons">18</span>
+            </div>
+            <button class="nav-arrow-btn" id="nextReasonBtn" aria-label="Next reason">❯</button>
+          </div>
+
+          <!-- Quick Jump Indicator Dots -->
+          <div class="reason-dots" id="reasonDotsContainer">
+            <!-- Injected via JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB PANEL 2: "Open When..." Envelopes Grid -->
+      <div class="tab-content" id="panelOpenWhen">
+        <p class="envelopes-intro text-center">
+          Tap any envelope below to open a private letter whenever you need it most.
+        </p>
+
+        <!-- 
+          ✏️ EDIT ENVELOPE MESSAGES:
+          You can customize each envelope title, icon, and the letter popup contents!
+        -->
+        <div class="envelopes-grid">
+
+          <!-- Envelope 1 -->
+          <div class="envelope-item reveal-on-scroll" data-envelope-id="1">
+            <div class="envelope-graphic">
+              <div class="envelope-flap"></div>
+              <div class="envelope-pocket"></div>
+              <div class="wax-seal"><span></span></div>
+              <div class="envelope-letter-peek"></div>
+            </div>
+            <h4 class="envelope-title">Open when we have an argument</h4>
+            <span class="tap-open-hint">Tap to Open ✉️</span>
+          </div>
+
+          <!-- Envelope 2 -->
+          <div class="envelope-item reveal-on-scroll" data-envelope-id="2">
+            <div class="envelope-graphic">
+              <div class="envelope-flap"></div>
+              <div class="envelope-pocket"></div>
+              <div class="wax-seal"><span></span></div>
+              <div class="envelope-letter-peek"></div>
+            </div>
+            <h4 class="envelope-title">Open when you miss me</h4>
+            <span class="tap-open-hint">Tap to Open ✉️</span>
+          </div>
+
+          <!-- Envelope 3 -->
+          <div class="envelope-item reveal-on-scroll" data-envelope-id="3">
+            <div class="envelope-graphic">
+              <div class="envelope-flap"></div>
+              <div class="envelope-pocket"></div>
+              <div class="wax-seal"><span></span></div>
+              <div class="envelope-letter-peek"></div>
+            </div>
+            <h4 class="envelope-title">Open when you're having a rough day</h4>
+            <span class="tap-open-hint">Tap to Open ✉️</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 5: FINAL BIRTHDAY WISH & BLOW OUT THE CANDLES FINALE
+       ======================================================== -->
+  <section class="section-wrapper finale-section" id="finale">
+    <div class="container finale-container">
+      <div class="section-header text-center">
+        <span class="section-subtitle">Make A Wish</span>
+        <h2 class="section-title">Your 21st Birthday Wish</h2>
+        <div class="heart-divider">
+          <span></span><i class="heart-icon">🎂</i><span></span>
+        </div>
+      </div>
+
+      <!-- Interactive 21st Birthday Cake & Candles -->
+      <div class="cake-stage reveal-on-scroll">
+        <div class="cake-card-surface">
+          <div class="cake-illustration" id="birthdayCake" title="Click or blow out the candles!">
+            
+            <!-- Number '21' Toppers or Candles with Animated Flame -->
+            <div class="candles-row" id="candlesRow">
+              <!-- Candle 2 -->
+              <div class="candle-wrapper" id="candle1">
+                <div class="candle-flame">
+                  <div class="flame-glow"></div>
+                  <div class="flame-core"></div>
+                </div>
+                <div class="candle-wick"></div>
+                <div class="candle-number-body">2</div>
+              </div>
+
+              <!-- Candle 1 -->
+              <div class="candle-wrapper" id="candle2">
+                <div class="candle-flame">
+                  <div class="flame-glow"></div>
+                  <div class="flame-core"></div>
+                </div>
+                <div class="candle-wick"></div>
+                <div class="candle-number-body">1</div>
+              </div>
+            </div>
+
+            <!-- Cake Layers Structure -->
+            <div class="cake-structure">
+              <!-- Frosting drips & roses decoration -->
+              <div class="cake-layer cake-top">
+                <div class="icing-drips">
+                  <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="berries-decor">🍓 🌸 🍓</div>
+              </div>
+              <div class="cake-layer cake-middle">
+                <div class="cream-piping"></div>
+              </div>
+              <div class="cake-layer cake-bottom">
+                <div class="gold-ribbon-line"></div>
+              </div>
+              <div class="cake-plate"></div>
+            </div>
+
+          </div>
+
+          <!-- Candle Status & Wish Button -->
+          <div class="cake-actions-box">
+            <p class="wish-instruction" id="wishInstructionText">
+              Close your eyes, make your biggest 21st wish, and blow out the candles! 🕯️
+            </p>
+            <button class="btn-blow-candles" id="blowCandlesBtn">
+              <span class="btn-icon">🌬️</span>
+              <span id="blowBtnLabel">Blow Out The Candles</span>
+            </button>
+            <div class="wish-made-badge" id="wishMadeBadge">
+              🎉 <strong>WISH GRANTED!</strong> May all your dreams come true! 💖
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Final Love Letter Paper -->
+      <div class="love-letter-wrapper reveal-on-scroll" id="finalLoveLetter">
+        <div class="letter-parchment">
+          <div class="wax-seal-stamp">
+            <span>21</span>
+          </div>
+
+          <div class="letter-header">
+            <span class="letter-salutation">My Dearest Dan,</span>
+          </div>
+
+          <!-- 
+            ✏️ EDIT FINAL LOVE LETTER HERE:
+            Write your own personal, heart-touching message!
+          -->
+          <div class="letter-body">
+            <p>
+              Welcome to chapter 21, my baby! Another year to grow, learn, and become an even more amazing version of yourself. 
+              I hope you never lose the things that make you who you are. I'm beyond proud of you and excited to see all the beautiful things life has waiting for you.
+            </p>
+            <p>
+              Thank you for being my comfort on rainy days, my number one supporter, my favorite person to laugh with,
+              and the one who makes even the simplest moments feel so much special. Life may take us to different places,
+              and time may pass faster than we think, but I promise to keep choosing you,
+              holding your hand through every version of you, reminding you how much you mean to me,
+              and loving you a little more with every passing day.
+            </p>
+            <p>
+              May you never forget to thank God for every blessing and lesson that he presents you. 
+              I'm honestly out of words to express how much I love you, 
+              but I hope this little letter reminds you of how much you mean to me every single day.
+              I love you, my Dan. I love you, Baby. Happy 21st Birthday! Mwaaa
+            </p>
+          </div>
+
+          <div class="letter-footer">
+            <p class="letter-signoff">Forever & Always Yours,</p>
+            <p class="letter-signature">Ivan</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sweet Footer Note -->
+      <footer class="romantic-footer text-center">
+        <div class="footer-heart-trail"></div>
+        <p class="footer-text">
+          Happy happy happy 21st Birthday • From Ivan.
+        </p>
+        <button class="btn-back-to-top" id="backToTopBtn">
+          <span>↑ Back to the top</span>
+        </button>
+      </footer>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       MODAL 1: LIGHTBOX (PHOTOS & VIDEOS)
+       ======================================================== -->
+  <div class="lightbox-overlay" id="lightboxOverlay" aria-hidden="true" role="dialog">
+    <div class="lightbox-modal">
+      <button class="lightbox-close-btn" id="lightboxCloseBtn" aria-label="Close image viewer">✕</button>
+      <button class="lightbox-nav-btn prev" id="lightboxPrevBtn" aria-label="Previous photo">❮</button>
+      <button class="lightbox-nav-btn next" id="lightboxNextBtn" aria-label="Next photo">❯</button>
+      
+      <div class="lightbox-media-container" id="lightboxMediaContainer">
+        <!-- Injected via JavaScript (img or video) -->
+      </div>
+      
+      <div class="lightbox-info">
+        <p class="lightbox-caption" id="lightboxCaption"></p>
+        <div class="lightbox-meta">
+          <span class="lightbox-date" id="lightboxDate"></span>
+          <span class="lightbox-counter" id="lightboxCounter"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 2: "OPEN WHEN..." LETTER POPUP
+       ======================================================== -->
+  <div class="letter-modal-overlay" id="letterModalOverlay" aria-hidden="true" role="dialog">
+    <div class="letter-modal-card">
+      <button class="letter-modal-close" id="letterModalClose" aria-label="Close letter">✕</button>
+      <div class="letter-modal-stamp">💌</div>
+      <h3 class="letter-modal-title" id="letterModalTitle"></h3>
+      <div class="letter-modal-divider">✦ ✦ ✦</div>
+      <div class="letter-modal-content" id="letterModalBody"></div>
+      <div class="letter-modal-footer">
+        <span class="signature-line">With all my love, always ❤️</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript -->
+  <script src="script.js"></script>
+</body>
+</html>
